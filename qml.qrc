@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ClickWave.qml</file>
+        <file>ImageButton.qml</file>
+        <file>random.png</file>
+    </qresource>
+</RCC>
