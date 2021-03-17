@@ -42,37 +42,33 @@ Button
       width:  parent.width * 3
       height: parent.height * 3
 
+      pressX:     control.pressX
+      pressY:     control.pressY
+      pressed:    control.pressed
       wave_color: control.waveColor
     }
   }
 
-  MouseArea
+  onPressed:
   {
-    id: mouseArea
+    opacityBrightAnimation.stop();
+    opacityDimAnimation.start();
+  }
 
-    anchors.fill: parent
-    hoverEnabled: true
+  onReleased:
+  {
+    opacityDimAnimation.stop();
+    opacityBrightAnimation.start();
+  }
 
-    onPressed:
-    {
-      opacityBrightAnimation.stop();
-      opacityDimAnimation.start();
-      clickWave.click( mouse.x, mouse.y );
-    }
-
-    onReleased:
-    {
-      opacityDimAnimation.stop();
-      opacityBrightAnimation.start();
-    }
-
-    onEntered:
+  onHoveredChanged:
+  {
+    if ( control.hovered )
     {
       exitedAnimation.stop();
       enteredAnimation.start();
     }
-
-    onExited:
+    else
     {
       enteredAnimation.stop();
       exitedAnimation.start();
@@ -125,7 +121,7 @@ Button
     property: "backgroundColor"
 
     from: control.backgroundColor
-    to: control.fixedBackgroundColor
+    to:   control.fixedBackgroundColor
 
     duration: 500
     running: false

@@ -12,6 +12,10 @@ Item
 
   property double wave_offset: 0.0
   property color  wave_color:  "red"
+  property bool   pressed:     false
+  property real   pressX:      0
+  property real   pressY:      0
+
 
   RadialGradient
   {
@@ -23,7 +27,7 @@ Item
       GradientStop
       {
         position: ( control.wave_offset > 0.1 ) ? ( control.wave_offset-0.1 ) : 0
-        color: "transparent"
+        color:    "transparent"
       }
 
       GradientStop { position: control.wave_offset+0.09; color: control.wave_color }
@@ -31,10 +35,17 @@ Item
     }
   }
 
+  onPressedChanged:
+  {
+    if ( control.pressed )
+    {
+      control.click( control.pressX, control.pressY );
+    }
+  }
 
   PropertyAnimation
   {
-    id:         animation
+    id:         gradientAnimation
     target:     control
     property:   "wave_offset"
 
@@ -50,9 +61,9 @@ Item
 
   function click( ptx,pty )
   {
-    animation.stop()
+    gradientAnimation.stop()
     control.x = ptx - control.width / 2
     control.y = pty - control.height / 2
-    animation.start()
+    gradientAnimation.start()
   }
 }

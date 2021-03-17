@@ -8,10 +8,16 @@ Window {
   visible: true
   title: qsTr("Hello World")
 
-  ImageButton {
+  ImageButton
+  {
     width: 100
     height: 100
 
     source: "/random.png"
+
+    onClicked:
+    {
+      console.log( "image button clicked" );
+    }
   }
 }
